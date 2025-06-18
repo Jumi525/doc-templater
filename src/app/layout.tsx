@@ -25,9 +25,7 @@ export const metadata: Metadata = {
     "budgeting",
     "expenses",
   ],
-  authors: [
-    { name: "Ahmed Najmudeen", url: "https://www.github.com/Jumi525/" },
-  ],
+  authors: [{ name: "Ahmed Najmudeen", url: "https://www.github.com/jumi525" }],
 };
 
 export default function RootLayout({
