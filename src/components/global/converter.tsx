@@ -49,11 +49,11 @@ export default function Home() {
       const file = e.target.files[0];
       setTemplateFile(file);
 
-      // const arrayBuffer = await file.arrayBuffer();
-      // const zip = new PizZip(arrayBuffer);
+      const arrayBuffer = await file.arrayBuffer();
+      const zip = new PizZip(arrayBuffer);
 
       const inspectModule = new InspectModule();
-      // const doc = new Docxtemplater(zip, { modules: [inspectModule] });
+      new Docxtemplater(zip, { modules: [inspectModule] });
 
       const tags = inspectModule.getAllTags();
       const fieldList = Object.keys(tags);
