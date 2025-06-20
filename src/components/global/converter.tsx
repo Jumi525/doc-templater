@@ -17,6 +17,7 @@ import { format } from "date-fns";
 import TextArea from "@/src/components/global/text-area";
 import { cn } from "@/src/lib/utils";
 import { toast } from "sonner";
+import Image from "next/image";
 
 export default function Home() {
   const [templateFile, setTemplateFile] = useState<File | null>(null);
@@ -153,7 +154,15 @@ export default function Home() {
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     });
 
-    saveAs(blob, `ABIA_ISR_MEMO.docx`);
+    saveAs(
+      blob,
+      `ABIA_ISR_${
+        "id-" +
+        Date.now().toString(36) +
+        "-" +
+        Math.random().toString(36).substring(2, 8)
+      }.docx`
+    );
 
     console.log("downloading");
     const clearedData: Record<string, string> = { ...data };
@@ -169,10 +178,25 @@ export default function Home() {
   };
 
   return (
-    <section className="flex max-w-[35rem] h-min sm:h-full sm:max-h-[38rem] bg-white rounded-lg sm:p-5 py-4 px-3 flex-col justify-between w-full gap-y-4">
-      <h2 className="text-preset-1">
-        {!fields.length ? "Input Your File" : "Fill the form"}
-      </h2>
+    <section className="flex max-w-[35rem] shadow-2xl h-[calc(100vh-2rem)] max-h-[38rem] sm:p-5 py-4 px-3 flex-col justify-between w-full gap-y-4 bg-white/10 backdrop-blur-2xl rounded-2xl border border-white/40 drop-shadow-lg">
+      <div className="flex flex-col gap-y-3">
+        <div className="flex lg:hidden p-1 ml-auto w-min items-center gap-x-2">
+          <Image
+            src="/Ellipse.png"
+            alt="CNFF"
+            height="50"
+            width="50"
+            className="aspect-square w-auto h-auto min-w-[2.5rem] rounded-md"
+          />
+          <div className="flex flex-col">
+            <h1 className="text-preset-3 text-blue-500">CNAFF</h1>
+            <p className="text-preset-5-bold text-nowrap">Global Resources</p>
+          </div>
+        </div>
+        <h2 className="text-preset-1">
+          {!fields.length ? "Input Your File" : "Fill the form"}
+        </h2>
+      </div>
 
       {/* ✅ Upload input */}
       <input
@@ -180,7 +204,7 @@ export default function Home() {
         accept=".docx"
         onChange={handleUpload}
         className={cn(
-          "file:mr-4 file:h-12 w-min rounded-md truncate file:px-4 bg-purple-300 file:bg-black file:text-white text-white file:text-preset-4 file:rounded-md",
+          "file:mr-4 file:h-12 w-min rounded-md truncate file:px-4 bg-blue-300 file:bg-black file:text-white text-white file:text-preset-4 file:rounded-md",
           { "self-center": !fields.length }
         )}
       />
@@ -188,7 +212,7 @@ export default function Home() {
       {/* ✅ Dynamic Form */}
       <div
         className={cn(
-          "flex flex-col max-h-[26.3rem] gap-y-2 overflow-y-auto h-full",
+          "flex flex-col max-h-[23rem] -pb-2 gap-y-2 overflow-y-auto h-full",
           {
             hidden: !fields.length,
           }
